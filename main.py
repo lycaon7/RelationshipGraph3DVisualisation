@@ -13,6 +13,7 @@ data = json.loads(req.read())
 # Save data to cvs for ease of analysis
 for d in data:
     df = pd.DataFrame(data[d])
+    # TODO: Change path to be generalise
     filepath = Path(f'C:\\Users\\Natan Krombein\\Documents\\GitHub\\Graph3DVisualisation\\data{d.capitalize()}.csv')
     df.to_csv(filepath)
 
@@ -90,4 +91,4 @@ layout = go.Layout(
 
 data = [trace1, trace2]
 fig = go.Figure(data=data, layout=layout)
-fig.write_html('first_figure.html', auto_open=False)
+fig.write_html('Graph.html', auto_open=False)
