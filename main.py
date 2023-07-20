@@ -1,6 +1,7 @@
 import json
 import urllib.request
 import igraph as ig
+import numpy
 import plotly.graph_objs as go
 import pandas as pd
 from pathlib import Path
@@ -9,6 +10,15 @@ from pathlib import Path
 data = []
 req = urllib.request.urlopen("https://raw.githubusercontent.com/plotly/datasets/master/miserables.json")
 data = json.loads(req.read())
+
+# Updates group to number of links
+numLinks = numpy.zeros(len(data['nodes']))
+for l in data['links']:
+    numLinks[l['source']] += 1
+    numLinks[l['target']] += 1
+
+for i, n in enumerate(data['nodes']):
+    n['group'] = int(numLinks[i])
 
 # Save data to cvs for ease of analysis
 for d in data:
@@ -52,7 +62,7 @@ trace1 = go.Scatter3d(x=Xe, y=Ye, z=Ze, mode='lines', line=dict(color='rgb(125,1
 
 # Creates traces based on node position to be visualized by plotly
 trace2 = go.Scatter3d(x=Xn, y=Yn, z=Zn, mode='markers', name='actors',
-                      marker=dict(symbol='circle', size=6, color=group, colorscale='Viridis',
+                      marker=dict(symbol='circle', size=6, color=group, colorscale='rainbow',
                                   line=dict(color='rgb(50,50,50)', width=0.5))
                       , text=labels, hoverinfo='text')
 
