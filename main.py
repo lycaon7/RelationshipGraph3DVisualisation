@@ -23,8 +23,7 @@ for i, n in enumerate(data['nodes']):
 # Save data to cvs for ease of analysis
 for d in data:
     df = pd.DataFrame(data[d])
-    # TODO: Change path to be generalise
-    filepath = Path(f'C:\\Users\\Natan Krombein\\Documents\\GitHub\\Graph3DVisualisation\\data{d.capitalize()}.csv')
+    filepath = f'{Path().absolute()}\\data{d.capitalize()}.csv'
     df.to_csv(filepath)
 
 # Create graph from data
