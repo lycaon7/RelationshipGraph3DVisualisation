@@ -4,21 +4,11 @@ import igraph as ig
 import numpy
 import plotly.graph_objs as go
 import pandas as pd
+from inputProcessor import Data
 from pathlib import Path
 
-# Get set of nodes and links from example json file
-data = []
-req = urllib.request.urlopen("https://raw.githubusercontent.com/plotly/datasets/master/miserables.json")
-data = json.loads(req.read())
-
-# Updates group to number of links
-numLinks = numpy.zeros(len(data['nodes']))
-for l in data['links']:
-    numLinks[l['source']] += 1
-    numLinks[l['target']] += 1
-
-for i, n in enumerate(data['nodes']):
-    n['group'] = int(numLinks[i])
+PROCESSED_DATA = Data('inputs.txt')
+data = PROCESSED_DATA.data
 
 # Save data to cvs for ease of analysis
 for d in data:
@@ -27,9 +17,7 @@ for d in data:
     df.to_csv(filepath)
 
 # Create graph from data
-numberOfNodes = len(data['nodes'])
-numberOfLinks = len(data['links'])
-edges = [(data['links'][k]['source'], data['links'][k]['target']) for k in range(numberOfLinks)]
+edges = [(data['edges'][k]['source'], data['edges'][k]['target']) for k in range(PROCESSED_DATA.numOfEdges)]
 G = ig.Graph(edges, directed=False)
 
 # Visualization of graph
@@ -43,9 +31,9 @@ for node in data['nodes']:
 layt = G.layout('kk', dim=3)
 
 # Positions of the nodes in 3d space based on the algorithm
-Xn = [layt[k][0] for k in range(numberOfNodes)]  # x-coordinates of nodes
-Yn = [layt[k][1] for k in range(numberOfNodes)]  # y-coordinates of nodes
-Zn = [layt[k][2] for k in range(numberOfNodes)]  # z-coordinates of nodes
+Xn = [layt[k][0] for k in range(PROCESSED_DATA.numOfNodes)]  # x-coordinates of nodes
+Yn = [layt[k][1] for k in range(PROCESSED_DATA.numOfNodes)]  # y-coordinates of nodes
+Zn = [layt[k][2] for k in range(PROCESSED_DATA.numOfNodes)]  # z-coordinates of nodes
 
 # Positions of the edges in 3d space that connect the nodes
 Xe = []
@@ -100,4 +88,4 @@ layout = go.Layout(
 
 data = [trace1, trace2]
 fig = go.Figure(data=data, layout=layout)
-fig.write_html('Graph.html', auto_open=False)
+fig.write_html('graph.html', auto_open=False)
