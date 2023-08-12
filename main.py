@@ -10,12 +10,6 @@ from pathlib import Path
 PROCESSED_DATA = Data('inputs.txt')
 data = PROCESSED_DATA.data
 
-# Save data to cvs for ease of analysis
-for d in data:
-    df = pd.DataFrame(data[d])
-    filepath = f'{Path().absolute()}\\data{d.capitalize()}.csv'
-    df.to_csv(filepath)
-
 # Create graph from data
 edges = [(data['edges'][k]['source'], data['edges'][k]['target']) for k in range(PROCESSED_DATA.numOfEdges)]
 G = ig.Graph(edges, directed=False)

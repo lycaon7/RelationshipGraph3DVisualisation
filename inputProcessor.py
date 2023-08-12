@@ -18,6 +18,7 @@ class Data:
             nodes.append({'name': i, 'group': 0})
         self.data = {'nodes': nodes, 'edges': edges}
         self.get_node_groups(self, self.data)
+        self.create_csv(self)
 
     @staticmethod
     def get_node_groups(self, data):
@@ -28,3 +29,11 @@ class Data:
 
         for i, n in enumerate(data['nodes']):
             n['group'] = int(num_edges[i])
+
+    # Save data to cvs for ease of analysis
+    @staticmethod
+    def create_csv(self):
+        for d in self.data:
+            df = pd.DataFrame(self.data[d])
+            filepath = f'{Path().absolute()}\\data{d.capitalize()}.csv'
+            df.to_csv(filepath)
