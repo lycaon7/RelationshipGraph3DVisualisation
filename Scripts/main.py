@@ -1,17 +1,14 @@
-import json
-import urllib.request
 import igraph as ig
-import numpy
 import plotly.graph_objs as go
-import pandas as pd
-from inputProcessor import Data
-from pathlib import Path
+from dataProcessor import DataProcessor
 
-PROCESSED_DATA = Data('inputs.txt')
-data = PROCESSED_DATA.data
+# Input file name. Note the input file needs to be in the same folder as the python scripts!
+FILE_NAME = 'inputs.txt'
+dataProcessor = DataProcessor(FILE_NAME)
+data = dataProcessor.data
 
 # Create graph from data
-edges = [(data['edges'][k]['source'], data['edges'][k]['target']) for k in range(PROCESSED_DATA.numOfEdges)]
+edges = [(data['edges'][k]['source'], data['edges'][k]['target']) for k in range(dataProcessor.numOfEdges)]
 G = ig.Graph(edges, directed=False)
 
 # Visualization of graph
@@ -25,9 +22,9 @@ for node in data['nodes']:
 layt = G.layout('kk', dim=3)
 
 # Positions of the nodes in 3d space based on the algorithm
-Xn = [layt[k][0] for k in range(PROCESSED_DATA.numOfNodes)]  # x-coordinates of nodes
-Yn = [layt[k][1] for k in range(PROCESSED_DATA.numOfNodes)]  # y-coordinates of nodes
-Zn = [layt[k][2] for k in range(PROCESSED_DATA.numOfNodes)]  # z-coordinates of nodes
+Xn = [layt[k][0] for k in range(dataProcessor.numOfNodes)]  # x-coordinates of nodes
+Yn = [layt[k][1] for k in range(dataProcessor.numOfNodes)]  # y-coordinates of nodes
+Zn = [layt[k][2] for k in range(dataProcessor.numOfNodes)]  # z-coordinates of nodes
 
 # Positions of the edges in 3d space that connect the nodes
 Xe = []
@@ -82,4 +79,4 @@ layout = go.Layout(
 
 data = [trace1, trace2]
 fig = go.Figure(data=data, layout=layout)
-fig.write_html('graph.html', auto_open=False)
+fig.write_html('build.html', auto_open=False)
