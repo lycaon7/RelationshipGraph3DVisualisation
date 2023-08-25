@@ -1,6 +1,7 @@
 import igraph as ig
 import plotly.graph_objs as go
 import layoutBuilder
+from pathlib import Path
 from dataProcessor import DataProcessor
 
 # Input file name. Note the input file needs to be in the same folder as the python scripts!
@@ -48,4 +49,4 @@ trace2 = go.Scatter3d(x=Xn, y=Yn, z=Zn, mode='markers', name='actors',
 layout = layoutBuilder.get_html_layout()
 data = [trace1, trace2]
 fig = go.Figure(data=data, layout=layout)
-fig.write_html('build.html', auto_open=False)
+fig.write_html(f'{Path().absolute().parent}\\build.html', auto_open=False)

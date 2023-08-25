@@ -6,7 +6,6 @@ AXIS = dict(showbackground=False, showline=False, zeroline=False, showgrid=False
 # Returns a layout for the HTML file that displays the graph
 def get_html_layout():
     return go.Layout(
-        title="Test of Library",
         width=1000,
         height=1000,
         showlegend=False,
