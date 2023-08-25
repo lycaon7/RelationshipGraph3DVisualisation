@@ -1,5 +1,6 @@
 import igraph as ig
 import plotly.graph_objs as go
+import layoutBuilder
 from dataProcessor import DataProcessor
 
 # Input file name. Note the input file needs to be in the same folder as the python scripts!
@@ -44,39 +45,7 @@ trace2 = go.Scatter3d(x=Xn, y=Yn, z=Zn, mode='markers', name='actors',
                                   line=dict(color='rgb(50,50,50)', width=0.5))
                       , text=labels, hoverinfo='text')
 
-axis = dict(showbackground=False, showline=False, zeroline=False, showgrid=False, showticklabels=False, title='')
-
-# Layout of the HTML
-layout = go.Layout(
-    title="Test of Library",
-    width=1000,
-    height=1000,
-    showlegend=False,
-    scene=dict(
-        xaxis=dict(axis),
-        yaxis=dict(axis),
-        zaxis=dict(axis),
-    ),
-    margin=dict(
-        t=100
-    ),
-    hovermode='closest',
-    annotations=[
-        dict(
-            showarrow=False,
-            text="Data source: <a href='http://bost.ocks.org/mike/miserables/miserables.json'>[1] miserables.json</a>",
-            xref='paper',
-            yref='paper',
-            x=0,
-            y=0.1,
-            xanchor='left',
-            yanchor='bottom',
-            font=dict(
-                size=14
-            )
-        )
-    ], )
-
+layout = layoutBuilder.get_html_layout()
 data = [trace1, trace2]
 fig = go.Figure(data=data, layout=layout)
 fig.write_html('build.html', auto_open=False)
