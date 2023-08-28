@@ -38,12 +38,12 @@ for e in edges:
     Ze += [layt[e[0]][2], layt[e[1]][2], None]  # z-coordinates of edge ends
 
 # Creates traces based on edge position to be visualized by plotly
-trace1 = go.Scatter3d(x=Xe, y=Ye, z=Ze, mode='lines', line=dict(color='rgb(125,125,125)', width=1), hoverinfo='none')
+trace1 = go.Scatter3d(x=Xe, y=Ye, z=Ze, mode='lines', line=dict(color='rgb(125,125,125)', width=1.25), hoverinfo='none')
 
 # Creates traces based on node position to be visualized by plotly
 trace2 = go.Scatter3d(x=Xn, y=Yn, z=Zn, mode='markers', name='actors',
                       marker=dict(symbol='circle', size=6, color=group, colorscale='rainbow',
-                                  line=dict(color='rgb(50,50,50)', width=0.5))
+                                  line=dict(color='rgb(0,0,0)', width=1.5))
                       , text=labels, hoverinfo='text')
 
 layout = layoutBuilder.get_html_layout()

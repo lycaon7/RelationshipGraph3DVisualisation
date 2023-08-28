@@ -19,6 +19,7 @@ def get_html_layout():
         annotations=[
             dict(
                 showarrow=False,
+                text='',
                 xref='paper',
                 yref='paper',
                 x=0,
@@ -29,4 +30,5 @@ def get_html_layout():
                     size=14
                 )
             )
-        ], )
+        ],
+    )
