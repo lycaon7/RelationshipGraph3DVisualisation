@@ -1,5 +1,7 @@
 import igraph as ig
 import plotly.graph_objs as go
+import layoutBuilder
+from pathlib import Path
 from dataProcessor import DataProcessor
 
 # Input file name. Note the input file needs to be in the same folder as the python scripts!
@@ -36,47 +38,15 @@ for e in edges:
     Ze += [layt[e[0]][2], layt[e[1]][2], None]  # z-coordinates of edge ends
 
 # Creates traces based on edge position to be visualized by plotly
-trace1 = go.Scatter3d(x=Xe, y=Ye, z=Ze, mode='lines', line=dict(color='rgb(125,125,125)', width=1), hoverinfo='none')
+trace1 = go.Scatter3d(x=Xe, y=Ye, z=Ze, mode='lines', line=dict(color='rgb(125,125,125)', width=1.25), hoverinfo='none')
 
 # Creates traces based on node position to be visualized by plotly
 trace2 = go.Scatter3d(x=Xn, y=Yn, z=Zn, mode='markers', name='actors',
                       marker=dict(symbol='circle', size=6, color=group, colorscale='rainbow',
-                                  line=dict(color='rgb(50,50,50)', width=0.5))
+                                  line=dict(color='rgb(0,0,0)', width=1.5))
                       , text=labels, hoverinfo='text')
 
-axis = dict(showbackground=False, showline=False, zeroline=False, showgrid=False, showticklabels=False, title='')
-
-# Layout of the HTML
-layout = go.Layout(
-    title="Test of Library",
-    width=1000,
-    height=1000,
-    showlegend=False,
-    scene=dict(
-        xaxis=dict(axis),
-        yaxis=dict(axis),
-        zaxis=dict(axis),
-    ),
-    margin=dict(
-        t=100
-    ),
-    hovermode='closest',
-    annotations=[
-        dict(
-            showarrow=False,
-            text="Data source: <a href='http://bost.ocks.org/mike/miserables/miserables.json'>[1] miserables.json</a>",
-            xref='paper',
-            yref='paper',
-            x=0,
-            y=0.1,
-            xanchor='left',
-            yanchor='bottom',
-            font=dict(
-                size=14
-            )
-        )
-    ], )
-
+layout = layoutBuilder.get_html_layout()
 data = [trace1, trace2]
 fig = go.Figure(data=data, layout=layout)
-fig.write_html('build.html', auto_open=False)
+fig.write_html(f'{Path().absolute().parent}\\build.html', auto_open=False)

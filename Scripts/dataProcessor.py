@@ -10,7 +10,8 @@ class DataProcessor:
         # Note that the code is written in a way to accept the format of the txt files outputted from
         # the FORTRAN simulations used in the research of Prof. Richard Berkovits.
         # As such it is not generalised for any txt file of relationships.
-        input_file = open(f'{Path().absolute()}\\{file_name}')
+
+        input_file = open(f'{Path().absolute().parent}\\{file_name}')
         raw_inputs = input_file.read().split()
 
         # The first value in the array is the number of nodes
@@ -47,5 +48,5 @@ class DataProcessor:
     def create_csv(self):
         for d in self.data:
             df = pd.DataFrame(self.data[d])
-            filepath = f'{Path().absolute()}\\CSVs\\data{d.capitalize()}.csv'
+            filepath = f'{Path().absolute().parent}\\CSVs\\data{d.capitalize()}.csv'
             df.to_csv(filepath)
