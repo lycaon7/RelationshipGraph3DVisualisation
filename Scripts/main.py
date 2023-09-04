@@ -3,7 +3,7 @@ import plotly.graph_objs as go
 import layoutBuilder
 from dataProcessor import DataProcessor
 
-print("Enter .txt file location (Example: C:\\Users\\USER\\Documents\\Graph3DVisualisation\\inputs.txt):")
+print("Enter .txt file location (Example: C:\\Users\\USER\\Documents\\Graph3DVisualisation\\inputsExample.txt):")
 dataProcessor = DataProcessor(input())
 data = dataProcessor.data
 

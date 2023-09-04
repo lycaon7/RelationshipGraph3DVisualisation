@@ -8,13 +8,13 @@ Berkovits (https://physics.biu.ac.il/en/Berkovits_Richard).<br/>
 
 ## Usage
 
-1. Put a txt file of node relationships into the project package.
-2. Updated the `FILE_NAME` variable in `main.py` accordingly.
-3. Run the code and open the generated HTML `build.html`.
-   <br>
-   NOTE: The project is built in a way to specificaly accecpt txt files of the format that the FORTRAN simulations of
-   Prof. Berkovits.
-   An example of such a file is in the project.
+1. Run the code.
+2. Insert the path to a txt file of node relations into the console when prompted.
+3. Open the generated `build.html`.
+
+NOTE: The project is built in a way to specifically accept txt files of the format that the FORTRAN simulations of
+Prof. Berkovits.
+An example of such a file is in the project.
 
 ## License
 
