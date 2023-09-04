@@ -20,8 +20,5 @@ An example of such a file is in the project.
 
 [MIT](https://choosealicense.com/licenses/mit/)
 <br>
-<p>
-    <img src="https://github.com/lycaon7/Graph3DVisualisation/assets/65887925/e35739d1-4520-4c20-9155-6a7caac5f09f"
-        alt="Picture"
-        style="display: block;margin: 0 auto"/>
-</p>
+<br>
+<img src="https://physics.biu.ac.il/sites/physics/themes/dolev21_sub/images/d/BIULogoEng@3x.png">
