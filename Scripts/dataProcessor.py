@@ -7,6 +7,7 @@ from pathlib import Path
 class DataProcessor:
     def __init__(self, file):
         self.file = Path(file)
+
         # Reads input txt file and puts the values into an array.
         # Note that the code is written in a way to accept the format of the txt files outputted from
         # the FORTRAN simulations used in the research of Prof. Richard Berkovits.
@@ -27,10 +28,10 @@ class DataProcessor:
         self.numOfEdges = int(raw_inputs[1])
         edges = []
         nodes = []
+        for i in range(1, self.numOfNodes):
+            nodes.append({'name': i, 'group': 0})
         for i in range(2, len(raw_inputs) - 1, 2):
             edges.append({'source': int(raw_inputs[i]), 'target': int(raw_inputs[i + 1])})
-        for i in range(1, self.numOfNodes + 1):
-            nodes.append({'name': i, 'group': 0})
         self.data = {'nodes': nodes, 'edges': edges}
 
         self.get_node_groups(self, self.data)
@@ -46,7 +47,7 @@ class DataProcessor:
             num_edges[e['target']] += 1
 
         for i, n in enumerate(data['nodes']):
-            n['group'] = int(num_edges[i])
+            n['group'] = int(num_edges[i + 1])
 
     # Creates CSV files of the nodes and their group and the edge's source and target.
     @staticmethod

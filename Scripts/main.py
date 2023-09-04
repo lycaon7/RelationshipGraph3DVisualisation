@@ -1,7 +1,6 @@
 import igraph as ig
 import plotly.graph_objs as go
 import layoutBuilder
-from pathlib import Path
 from dataProcessor import DataProcessor
 
 print("Enter .txt file location (Example: C:\\Users\\USER\\Documents\\Graph3DVisualisation\\inputs.txt):")
@@ -10,22 +9,22 @@ data = dataProcessor.data
 
 # Create graph from data
 edges = [(data['edges'][k]['source'], data['edges'][k]['target']) for k in range(dataProcessor.numOfEdges)]
-G = ig.Graph(edges, directed=False)
+G = ig.Graph(edges=edges, directed=False)
 
 # Visualization of graph
-labels = []
+nodeName = []
 group = []
 for node in data['nodes']:
-    labels.append(node['name'])
+    nodeName.append(node['name'])
     group.append(node['group'])
 # Returns a layout for the graph based of the type of algorith supplied.
 # In our case we use the kk algorithm which optimises readability.
 layoutBlueprint = G.layout('kk', dim=3)
 
 # Positions of the nodes in 3d space based on the algorithm
-Xn = [layoutBlueprint[k][0] for k in range(dataProcessor.numOfNodes)]  # x-coordinates of nodes
-Yn = [layoutBlueprint[k][1] for k in range(dataProcessor.numOfNodes)]  # y-coordinates of nodes
-Zn = [layoutBlueprint[k][2] for k in range(dataProcessor.numOfNodes)]  # z-coordinates of nodes
+Xn = [layoutBlueprint[k][0] for k in range(1, dataProcessor.numOfNodes)]  # x-coordinates of nodes
+Yn = [layoutBlueprint[k][1] for k in range(1, dataProcessor.numOfNodes)]  # y-coordinates of nodes
+Zn = [layoutBlueprint[k][2] for k in range(1, dataProcessor.numOfNodes)]  # z-coordinates of nodes
 
 # Positions of the edges in 3d space that connect the nodes
 Xe = []
@@ -43,9 +42,9 @@ trace1 = go.Scatter3d(x=Xe, y=Ye, z=Ze, mode='lines', line=dict(color='rgb(125,1
 trace2 = go.Scatter3d(x=Xn, y=Yn, z=Zn, mode='markers', name='actors',
                       marker=dict(symbol='circle', size=6, color=group, colorscale='rainbow',
                                   line=dict(color='rgb(0,0,0)', width=1.5))
-                      , text=labels, hoverinfo='text')
+                      , text=nodeName, hoverinfo='text')
 
 layout = layoutBuilder.get_html_layout()
 data = [trace1, trace2]
 fig = go.Figure(data=data, layout=layout)
-fig.write_html(f'{Path().absolute().parent}\\build.html', auto_open=False)
+fig.write_html(f'{dataProcessor.file.parent}\\build.html', auto_open=False)
