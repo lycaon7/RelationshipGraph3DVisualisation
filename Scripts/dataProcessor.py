@@ -5,13 +5,18 @@ from pathlib import Path
 
 # Class used to process input .txt file in to an easier to work with format.
 class DataProcessor:
-    def __init__(self, file_name):
+    def __init__(self, file):
+        self.file = Path(file)
         # Reads input txt file and puts the values into an array.
         # Note that the code is written in a way to accept the format of the txt files outputted from
         # the FORTRAN simulations used in the research of Prof. Richard Berkovits.
         # As such it is not generalised for any txt file of relationships.
-
-        input_file = open(f'{Path().absolute().parent}\\{file_name}')
+        try:
+            input_file = open(self.file)
+            if self.file.suffix != '.txt':
+                exit("Invalid File Type")
+        except FileNotFoundError:
+            exit("File Not Found")
         raw_inputs = input_file.read().split()
 
         # The first value in the array is the number of nodes
@@ -48,5 +53,5 @@ class DataProcessor:
     def create_csv(self):
         for d in self.data:
             df = pd.DataFrame(self.data[d])
-            filepath = f'{Path().absolute().parent}\\CSVs\\data{d.capitalize()}.csv'
+            filepath = f'{self.file.parent}\\CSVs\\data{d.capitalize()}.csv'
             df.to_csv(filepath)

@@ -4,9 +4,8 @@ import layoutBuilder
 from pathlib import Path
 from dataProcessor import DataProcessor
 
-# Input file name. Note the input file needs to be in the same folder as the python scripts!
-FILE_NAME = 'inputs.txt'
-dataProcessor = DataProcessor(FILE_NAME)
+print("Enter .txt file location (Example: C:\\Users\\USER\\Documents\\Graph3DVisualisation\\inputs.txt):")
+dataProcessor = DataProcessor(input())
 data = dataProcessor.data
 
 # Create graph from data
@@ -21,21 +20,21 @@ for node in data['nodes']:
     group.append(node['group'])
 # Returns a layout for the graph based of the type of algorith supplied.
 # In our case we use the kk algorithm which optimises readability.
-layt = G.layout('kk', dim=3)
+layoutBlueprint = G.layout('kk', dim=3)
 
 # Positions of the nodes in 3d space based on the algorithm
-Xn = [layt[k][0] for k in range(dataProcessor.numOfNodes)]  # x-coordinates of nodes
-Yn = [layt[k][1] for k in range(dataProcessor.numOfNodes)]  # y-coordinates of nodes
-Zn = [layt[k][2] for k in range(dataProcessor.numOfNodes)]  # z-coordinates of nodes
+Xn = [layoutBlueprint[k][0] for k in range(dataProcessor.numOfNodes)]  # x-coordinates of nodes
+Yn = [layoutBlueprint[k][1] for k in range(dataProcessor.numOfNodes)]  # y-coordinates of nodes
+Zn = [layoutBlueprint[k][2] for k in range(dataProcessor.numOfNodes)]  # z-coordinates of nodes
 
 # Positions of the edges in 3d space that connect the nodes
 Xe = []
 Ye = []
 Ze = []
 for e in edges:
-    Xe += [layt[e[0]][0], layt[e[1]][0], None]  # x-coordinates of edge ends
-    Ye += [layt[e[0]][1], layt[e[1]][1], None]  # y-coordinates of edge ends
-    Ze += [layt[e[0]][2], layt[e[1]][2], None]  # z-coordinates of edge ends
+    Xe += [layoutBlueprint[e[0]][0], layoutBlueprint[e[1]][0], None]  # x-coordinates of edge ends
+    Ye += [layoutBlueprint[e[0]][1], layoutBlueprint[e[1]][1], None]  # y-coordinates of edge ends
+    Ze += [layoutBlueprint[e[0]][2], layoutBlueprint[e[1]][2], None]  # z-coordinates of edge ends
 
 # Creates traces based on edge position to be visualized by plotly
 trace1 = go.Scatter3d(x=Xe, y=Ye, z=Ze, mode='lines', line=dict(color='rgb(125,125,125)', width=1.25), hoverinfo='none')
