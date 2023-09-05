@@ -54,5 +54,6 @@ class DataProcessor:
     def create_csv(self):
         for d in self.data:
             df = pd.DataFrame(self.data[d])
-            filepath = f'{self.file.parent}\\CSVs\\data{d.capitalize()}.csv'
+            filepath = Path(f'{self.file.parent}\\CSVs\\data{d.capitalize()}.csv')
+            filepath.parent.mkdir(exist_ok=True)
             df.to_csv(filepath)
