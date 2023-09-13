@@ -6,14 +6,14 @@ from pathlib import Path
 # Class used to process input .txt file in to an easier to work with format.
 class DataProcessor:
     def __init__(self, file):
-        self.file = Path(file)
+        self.file = Path(Path(file).as_posix())
 
         # Reads input txt file and puts the values into an array.
         # Note that the code is written in a way to accept the format of the txt files outputted from
         # the FORTRAN simulations used in the research of Prof. Richard Berkovits.
         # As such it is not generalised for any txt file of relationships.
         try:
-            input_file = open(self.file)
+            input_file = open(self.file, 'r')
             if self.file.suffix != '.txt':
                 exit("Invalid File Type")
         except FileNotFoundError:
@@ -54,6 +54,6 @@ class DataProcessor:
     def create_csv(self):
         for d in self.data:
             df = pd.DataFrame(self.data[d])
-            filepath = Path(f'{self.file.parent}\\CSVs\\data{d.capitalize()}.csv')
+            filepath = Path(f'{self.file.parent}/CSVs/data{d.capitalize()}.csv')
             filepath.parent.mkdir(exist_ok=True)
             df.to_csv(filepath)

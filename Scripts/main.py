@@ -2,8 +2,9 @@ import igraph as ig
 import plotly.graph_objs as go
 import layoutBuilder
 from dataProcessor import DataProcessor
+from pathlib import Path
 
-print("Enter .txt file location (Example: C:\\Users\\USER\\Documents\\Graph3DVisualisation\\inputsExample.txt):")
+print("Enter .txt file location:")
 dataProcessor = DataProcessor(input())
 data = dataProcessor.data
 
@@ -47,4 +48,4 @@ trace2 = go.Scatter3d(x=Xn, y=Yn, z=Zn, mode='markers', name='actors',
 layout = layoutBuilder.get_html_layout()
 data = [trace1, trace2]
 fig = go.Figure(data=data, layout=layout)
-fig.write_html(f'{dataProcessor.file.parent}\\build.html', auto_open=False)
+fig.write_html(Path(f'{dataProcessor.file.parent}/{dataProcessor.file.stem}.html'), auto_open=False)
