@@ -6,11 +6,22 @@ Engineering and Physics.
 The project was done under the instruction of Prof. Richard
 Berkovits (https://physics.biu.ac.il/en/Berkovits_Richard).<br/>
 
+## Lists of Dependencies
+
+1. Pandas
+2. Numpy
+3. Pathlib
+4. Igraph
+5. Plotly
+6. LayoutBuilder
+7. DataProcessor
+
 ## Usage
 
-1. Run the code.
-2. Insert the path to a txt file of node relations into the console when prompted.
-3. Open the generated `build.html`.
+1. Install dependencies (Recommended using pip)
+2. Run the code.
+3. Insert the path to a txt file of node relations into the console when prompted.
+4. Open the generated `build.html`.
 
 NOTE: The project is built in a way to specifically accept txt files of the format that the FORTRAN simulations of
 Prof. Berkovits.
