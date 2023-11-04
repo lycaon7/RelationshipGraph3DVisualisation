@@ -10,11 +10,8 @@ Berkovits (https://physics.biu.ac.il/en/Berkovits_Richard).<br/>
 
 1. Pandas
 2. Numpy
-3. Pathlib
-4. Igraph
-5. Plotly
-6. LayoutBuilder
-7. DataProcessor
+3. Igraph
+4. Plotly
 
 ## Usage
 

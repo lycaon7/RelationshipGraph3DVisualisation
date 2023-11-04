@@ -1,0 +1,4 @@
+igraph~=0.10.6
+plotly~=5.16.0
+pandas~=2.1.2
+numpy~=1.26.1
